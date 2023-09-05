@@ -41,7 +41,12 @@ jobs:
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
           sh build.sh
-      - name: Print
+      - name: List files
         run: |
-          ls -al
           pwd
+          tree -a
+      - name: Commit & push to repository
+        run: |
+          git add .
+          git commit
+          git push
