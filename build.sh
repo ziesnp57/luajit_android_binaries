@@ -4,14 +4,15 @@
 # Fixed https://github.com/LuaJIT/LuaJIT/issues/440#issuecomment-438809840
 
 LUAJIT=luajit
-LUAJIT_OPT=..
 
 cd $LUAJIT
 
-BUILD_DIR=$LUAJIT_OPT/lib/android
+LUAJIT_OPT=src
+LIB_DIR=../lib
 
-rm -rf $BUILD_DIR
-mkdir -p $BUILD_DIR
+
+rm -rf $LIB_DIR
+mkdir -p $LIB_DIR
 rm *.a 1>/dev/null 2>/dev/null
 
 HOST_OS=linux
@@ -35,8 +36,8 @@ make HOST_CC="gcc -m32 -I/usr/i686-linux-gnu/include" CROSS=$NDKP \
      TARGET_LD=$NDKCC TARGET_AR="$NDKB/llvm-ar rcus" TARGET_STRIP=$NDKB/llvm-strip \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
-mkdir -p $BUILD_DIR/armeabi-v7a
-mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/armeabi-v7a/libluajit.a
+mkdir -p $LIB_DIR/armeabi-v7a
+mv $LUAJIT_OPT/libluajit.a $LIB_DIR/armeabi-v7a/libluajit.a
 
 echo "########## Building i686 ##########"
 TARGET=i686-linux-android
@@ -53,8 +54,8 @@ make HOST_CC="gcc -m32 -I/usr/i686-linux-gnu/include" CROSS=$NDKP \
      TARGET_LD=$NDKCC TARGET_AR="$NDKB/llvm-ar rcus" TARGET_STRIP=$NDKB/llvm-strip \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
-mkdir $BUILD_DIR/x86
-mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/x86/libluajit.a
+mkdir $LIB_DIR/x86
+mv $LUAJIT_OPT/libluajit.a $LIB_DIR/x86/libluajit.a
 
 NDKAPI=21
 
@@ -73,8 +74,8 @@ make HOST_CC="gcc -m64" CROSS=$NDKP \
      TARGET_LD=$NDKCC TARGET_AR="$NDKB/llvm-ar rcus" TARGET_STRIP=$NDKB/llvm-strip \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
-mkdir -p $BUILD_DIR/arm64-v8a
-mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/arm64-v8a/libluajit.a
+mkdir -p $LIB_DIR/arm64-v8a
+mv $LUAJIT_OPT/libluajit.a $LIB_DIR/arm64-v8a/libluajit.a
 
 echo "########## Building x86_64 ##########"
 TARGET=x86_64-linux-android
@@ -91,5 +92,5 @@ make HOST_CC="gcc -m64" CROSS=$NDKP \
      TARGET_LD=$NDKCC TARGET_AR="$NDKB/llvm-ar rcus" TARGET_STRIP=$NDKB/llvm-strip \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
-mkdir -p $BUILD_DIR/x86_64
-mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/x86_64/libluajit.a
+mkdir -p $LIB_DIR/x86_64
+mv $LUAJIT_OPT/libluajit.a $LIB_DIR/x86_64/libluajit.a
