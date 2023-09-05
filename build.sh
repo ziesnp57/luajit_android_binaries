@@ -3,8 +3,8 @@
 # From https://github.com/mjansson/lua_lib/blob/master/lua/luajit/build-android.sh
 # Fixed https://github.com/LuaJIT/LuaJIT/issues/440#issuecomment-438809840
 
-LUAJIT=../luajit
-LUAJIT_OPT=.
+LUAJIT=luajit
+LUAJIT_OPT=..
 
 cd $LUAJIT
 
