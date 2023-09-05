@@ -4,8 +4,11 @@
 # Fixed https://github.com/LuaJIT/LuaJIT/issues/440#issuecomment-438809840
 
 LUAJIT=../luajit
+LUAJIT_OPT=.
 
-BUILD_DIR=$LUAJIT/lib/android
+cd $LUAJIT
+
+BUILD_DIR=$LUAJIT_OPT/lib/android
 
 rm -rf $BUILD_DIR
 mkdir -p $BUILD_DIR
@@ -33,7 +36,7 @@ make HOST_CC="gcc -m32 -I/usr/i686-linux-gnu/include" CROSS=$NDKP \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
 mkdir -p $BUILD_DIR/armeabi-v7a
-mv $LUAJIT/src/libluajit.a $BUILD_DIR/armeabi-v7a/libluajit.a
+mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/armeabi-v7a/libluajit.a
 
 echo "########## Building i686 ##########"
 TARGET=i686-linux-android
@@ -51,7 +54,7 @@ make HOST_CC="gcc -m32 -I/usr/i686-linux-gnu/include" CROSS=$NDKP \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
 mkdir $BUILD_DIR/x86
-mv $LUAJIT/src/libluajit.a $BUILD_DIR/x86/libluajit.a
+mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/x86/libluajit.a
 
 NDKAPI=21
 
@@ -71,7 +74,7 @@ make HOST_CC="gcc -m64" CROSS=$NDKP \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
 mkdir -p $BUILD_DIR/arm64-v8a
-mv $LUAJIT/src/libluajit.a $BUILD_DIR/arm64-v8a/libluajit.a
+mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/arm64-v8a/libluajit.a
 
 echo "########## Building x86_64 ##########"
 TARGET=x86_64-linux-android
@@ -89,4 +92,4 @@ make HOST_CC="gcc -m64" CROSS=$NDKP \
      CFLAGS=-fPIC TARGET_FLAGS="$NDKARCH" \
      amalg
 mkdir -p $BUILD_DIR/x86_64
-mv $LUAJIT/src/libluajit.a $BUILD_DIR/x86_64/libluajit.a
+mv $LUAJIT_OPT/src/libluajit.a $BUILD_DIR/x86_64/libluajit.a
