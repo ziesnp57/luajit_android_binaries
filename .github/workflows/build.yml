@@ -37,14 +37,14 @@ jobs:
           sudo apt install -y --force-yes gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross
           sudo apt install -y --force-yes gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libc6-dev-armhf-cross
           sudo apt install -y --force-yes mingw-w64 lib32z1
-      - name: Copy header files
-        run: |
-          mkdir -p opt/include
-          cp -f luajit/src/*.h opt/include
       - name: Build natives
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
           sh build.sh
+      - name: Copy header files
+        run: |
+          mkdir -p opt/include
+          cp -f luajit/src/*.h opt/include
       - name: List files
         run: |
           pwd
