@@ -38,15 +38,13 @@ jobs:
           sudo apt install -y --force-yes gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libc6-dev-armhf-cross
           sudo apt install -y --force-yes mingw-w64 lib32z1
       - name: Copy header files
-        run: cp -f luajit/src/*.h lib/include
+        run: |
+          mkdir -p opt/include
+          cp -f luajit/src/*.h opt/include
       - name: Build natives
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
           sh build.sh
-      - name: Zip files
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r bin.zip lib
       - name: List files
         run: |
           pwd
@@ -54,4 +52,4 @@ jobs:
       - name: Upload files
         uses: actions/upload-artifact@v3
         with:
-          path: bin.zip
+          path: opt
