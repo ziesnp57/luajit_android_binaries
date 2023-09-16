@@ -41,15 +41,15 @@ jobs:
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
           sh build.sh
-      - name: List files
-        run: |
-          pwd
-          tree -a
       - name: Zip files
         uses: montudor/action-zip@v1
         with:
           args: zip -qq -r bin.zip lib
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: List files
+        run: |
+          pwd
+          tree -a
+      - name: Upload files
+        uses: actions/upload-artifact@v3
         with:
-          files: bin.zip
+          path: bin.zip
