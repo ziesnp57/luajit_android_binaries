@@ -45,8 +45,11 @@ jobs:
         run: |
           pwd
           tree -a
-      - name: Commit & push to repository
-        run: |
-          git add .
-          git commit
-          git push
+      - name: Zip files
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r bin.zip lib
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: bin.zip
