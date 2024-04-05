@@ -31,10 +31,7 @@ jobs:
       - run: echo "JAVA_11=$JAVA_HOME" >> $GITHUB_ENV
 
       - name: Clone LuaJIT repository
-        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
-        with:
-          owner: 'LuaJIT'
-          repository: 'LuaJIT'
+        run: git clone https://github.com/LuaJIT/LuaJIT.git luajit
 
       - name: Install cross-compilation toolchains
         run: |
