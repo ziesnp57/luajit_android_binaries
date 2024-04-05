@@ -56,8 +56,10 @@ jobs:
           mkdir -p opt/includes
           cp -f luajit/src/*.h opt/includes
 
+      - run: echo "DATA=$( date +"%Y-%m" )" >> $GITHUB_ENV
+
       - name: Zip files
-        run:  zip -r $( date +"%Y-%m" ).zip opt
+        run:  zip -r ${{ env.DATA }}.zip opt
 
       - name: List files
         run: |
@@ -67,4 +69,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: $( date +"%Y-%m" ).zip
+          tag: ${{ env.DATA }}
+          files: ${{ env.DATA }}.zip
