@@ -69,5 +69,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag: ${{ env.DATA }}
+          tag_name: ${{ env.DATA }}
           files: ${{ env.DATA }}.zip
