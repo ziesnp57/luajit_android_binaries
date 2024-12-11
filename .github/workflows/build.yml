@@ -31,7 +31,7 @@ jobs:
       - run: echo "JAVA_11=$JAVA_HOME" >> $GITHUB_ENV
 
       - name: Clone LuaJIT repository
-        run: git clone https://github.com/openresty/luajit2.git luajit
+        run: git clone https://github.com/LuaJIT/LuaJIT.git luajit
 
       - name: Install cross-compilation toolchains
         run: |
