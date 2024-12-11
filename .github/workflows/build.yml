@@ -1,7 +1,7 @@
 # From https://github.com/gudzpoz/luajava/blob/main/.github/workflows/build-natives.yml
 # Modified from https://github.com/libgdx/libgdx/blob/master/.github/workflows/build-publish.yml
 
-name: Build binaries
+name: 构建 LuaJIT
 
 on:
   schedule:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK 8
+      - name: 设置 JDK 8
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -22,7 +22,7 @@ jobs:
 
       - run: echo "JAVA_8=$JAVA_HOME" >> $GITHUB_ENV
 
-      - name: Set up JDK 11
+      - name: 设置 JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -30,10 +30,10 @@ jobs:
 
       - run: echo "JAVA_11=$JAVA_HOME" >> $GITHUB_ENV
 
-      - name: Clone LuaJIT repository
+      - name: 克隆 LuaJIT 储存库
         run: git clone https://github.com/LuaJIT/LuaJIT.git luajit
 
-      - name: Install cross-compilation toolchains
+      - name: 安装交叉编译工具链
         run: |
           sudo apt update
           sudo apt install -y --force-yes gcc g++ linux-libc-dev libc6-dev
@@ -46,27 +46,27 @@ jobs:
           sudo apt install -y --force-yes gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libc6-dev-armhf-cross
           sudo apt install -y --force-yes mingw-w64 lib32z1
 
-      - name: Build natives
+      - name: 构建 LuaJIT
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
           sh build.sh
 
-      - name: Copy header files
+      - name: 复制头文件
         run: |
           mkdir -p opt/includes
           cp -f luajit/src/*.h opt/includes
 
       - run: echo "DATA=$( date +"%Y-%m" )" >> $GITHUB_ENV
 
-      - name: Zip files
+      - name: 压缩文件
         run:  zip -r ${{ env.DATA }}.zip opt
 
-      - name: List files
+      - name: 显示文件
         run: |
           pwd
           tree -a
 
-      - name: Release
+      - name: 发布文件
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.DATA }}
